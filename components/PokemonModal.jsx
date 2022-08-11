@@ -9,10 +9,8 @@ import {
     ModalCloseButton,
     Button,
     Img,
-    List,
-    ListItem,
-    Flex,
     SimpleGrid,
+    Spinner,
   } from '@chakra-ui/react'
 import { Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -27,7 +25,7 @@ if (isOpen){
  updater++
 }
 
-async function testFetch (){
+async function pokeFetch (){
   if (updater>0){
     fetchOnePokemon(pokeid).then ((poke) => setPokemon(poke))
   }
@@ -36,7 +34,7 @@ async function testFetch (){
 const [Pokemon, setPokemon] = useState()
 
 useEffect(() => {
-  testFetch()
+  pokeFetch()
 }, [updater])
 
 
@@ -47,7 +45,9 @@ useEffect(() => {
           <ModalOverlay  />
           <ModalContent bg="grey">
             <ModalHeader textAlign={"center"}> {Pokemon && 
-            Pokemon.name} </ModalHeader>
+            Pokemon.name}
+            {!Pokemon && <Spinner /> }
+             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
             <Img
@@ -64,11 +64,13 @@ useEffect(() => {
                 <Text borderBottom={"1px"} fontSize={"24px"}>Types</Text>
                 {Pokemon &&
                 Pokemon.types.map(({type}) => <Text fontWeight={"500"}>{type.name} </Text> )}
+                {!Pokemon && <Spinner />}
                 </Box>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
                 <Text borderBottom={"1px"} fontSize={"24px"}>Abilities</Text>
                 {Pokemon &&
                 Pokemon.abilities.map(({ability}) => <Text fontWeight={"500"}>{ability.name} </Text> )}
+                {!Pokemon && <Spinner />}                
                 </Box>
             </SimpleGrid>
             </ModalBody>
