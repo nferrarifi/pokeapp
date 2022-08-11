@@ -9,9 +9,19 @@ import {
     Link,
     useColorModeValue,
     Divider,
+    Spinner
   } from '@chakra-ui/react';
+
+import { useDisclosure } from '@chakra-ui/react';
+import PokemonModal from './PokemonModal';
+import { useEffect, useState } from 'react';
+import { fetchOnePokemon } from '../repository/pokemonfetch';
+
   
   export default function PokemonCard({name, pokeid, types}) {
+
+    const {isOpen, onOpen, onClose } = useDisclosure()
+    
     return (
     <Box key={pokeid} margin="20px">
       <Center py={6}>
@@ -60,12 +70,14 @@ import {
 
               }}
               transition="all 0.3s"
+              onClick={onOpen}
               >
-              Add
+              View details
             </Button>
           </Stack>
         </Box>
       </Center>
+      <PokemonModal isOpen={isOpen} onClose={onClose} pokeid={pokeid} />
       </Box>
     );
   }
