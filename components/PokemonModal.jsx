@@ -41,10 +41,10 @@ useEffect(() => {
 
     return (
       <>
-        <Modal size={"md"} blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <Modal key={pokeid} size={"md"} blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay  />
           <ModalContent bg="grey">
-            <ModalHeader textAlign={"center"}> {Pokemon && 
+            <ModalHeader fontSize={"45px"} textAlign={"center"}> {Pokemon && 
             Pokemon.name}
             {!Pokemon && <Spinner /> }
              </ModalHeader>
@@ -52,12 +52,13 @@ useEffect(() => {
             <ModalBody>
             <Img
             src={
-              `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokeid}.png`
+              `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/other/official-artwork/${pokeid}.png`
             }
             mb={4}
             borderRadius={"0px"}
             pos={'relative'}
             margin="auto"
+            loading='lazy'
           />
             <SimpleGrid columns={2} spacing={10}>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>

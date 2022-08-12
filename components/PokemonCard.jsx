@@ -20,13 +20,14 @@ import { fetchOnePokemon } from '../repository/pokemonfetch';
   
   export default function PokemonCard({name, pokeid, types}) {
 
+
     const {isOpen, onOpen, onClose } = useDisclosure()
     
     return (
     <Box key={pokeid} margin="20px">
       <Center py={6}>
         <Box
-            borderRadius={"3px"}
+            borderRadius={"20px"}
           bg="#8eacbb"
           maxW={'250px'}
           w={'220px'}
@@ -42,15 +43,18 @@ import { fetchOnePokemon } from '../repository/pokemonfetch';
             borderRadius={"0px"}
             pos={'relative'}
             margin="auto"
+            loading="lazy"
           />
-          <Heading fontSize={'2xl'} fontFamily={'body'}>
+          <Heading fontSize={'25px'} fontFamily={'body'}>
             {name}
             </Heading>
           <Divider></Divider>
           <Text
             marginTop={"10px"}
             textAlign={'center'}
-            color={useColorModeValue('gray.700', 'gray.400')}
+            fontSize="20px"
+            color={"useColorModeValue('gray.700', 'gray.400')"}
+            fontWeight="500"
             px={3}>
             {types&& 
             types?.map((type)=>(type.name + " "))}
