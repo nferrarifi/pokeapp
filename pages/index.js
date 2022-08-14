@@ -1,13 +1,19 @@
-import { Box, Flex, Input } from "@chakra-ui/react";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useState } from "react";
 import Nav from "../components/Nav";
 import PokemonCard from "../components/PokemonCard";
 import { getAllPokemon } from "../repository/pokemondb";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home({ allPokemon }) {
   const [Pokemon, setPokemon] = useState("");
+  const [team, setTeam] = useState([]);
+  /*   let pokeTeam = [];
+  let teamUpdater = 0;
+  if (teamUpdater > 0) {
+    pokeTeam.push(pokeid);
+  } */
+
   return (
     <>
       <Box
@@ -34,12 +40,6 @@ export default function Home({ allPokemon }) {
                 _placeholder={{ color: "white" }}
               ></Input>
             </Box>
-            {/*             <InfiniteScroll
-              dataLength={allPokemon.length}
-              next={setUpdater}
-              hasMore={true}
-              loader={<h4>Loading...</h4>}
-            > */}
             <Flex
               maxW={"100%"}
               flexDirection={"row"}
@@ -63,7 +63,6 @@ export default function Home({ allPokemon }) {
                     );
                   })}
             </Flex>
-            {/*             </InfiniteScroll> */}
           </Box>
         </Box>
       </Box>

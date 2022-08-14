@@ -18,17 +18,11 @@ import { fetchOnePokemon } from '../repository/pokemonfetch'
 
 
 
-export default function PokemonModal({isOpen, onClose, pokeid}) {
+export default function PokemonModal({isOpen, onClose, pokeid, test}) {
+//Logic required for modal to only fetch when opened, in order to avoid the fetching to occur 151+ times during rendering
 let updater = 0
-
 if (isOpen){
  updater++
-}
-
-async function pokeFetch (){
-  if (updater>0){
-    fetchOnePokemon(pokeid).then ((poke) => setPokemon(poke))
-  }
 }
 
 const [Pokemon, setPokemon] = useState()
@@ -38,12 +32,34 @@ useEffect(() => {
 }, [updater])
 
 
+//Logic for random move set feature
+const [Moves, setMoves] = useState()
+let randomMoveSet = []
+const createRandomMoveSet = (poke) => {
+  for(let i = 0; i<4; i++){
+    let randomMove = Math.floor(Math.random() * (poke.moves.length - 1) +1)
+    randomMoveSet.push (poke.moves[randomMove].move.name)
+  }
+}
+//End of move set feature logic
+
+async function pokeFetch (){
+  if (updater>0){
+    await fetchOnePokemon(pokeid).then ((poke) => {
+    createRandomMoveSet(poke)
+    setMoves (randomMoveSet)
+    setPokemon(poke)
+  })
+  }
+}
+
+
 
     return (
       <>
         <Modal key={pokeid} size={"md"} blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay  />
-          <ModalContent bg="grey">
+          <ModalContent bg="#8eacbb">
             <ModalHeader fontSize={"45px"} textAlign={"center"}> {Pokemon && 
             Pokemon.name}
             {!Pokemon && <Spinner /> }
@@ -59,6 +75,7 @@ useEffect(() => {
             pos={'relative'}
             margin="auto"
             loading='lazy'
+            width={"70%"}
           />
             <SimpleGrid columns={2} spacing={10}>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
@@ -66,6 +83,7 @@ useEffect(() => {
                 {Pokemon &&
                 Pokemon.types.map(({type}) => <Text fontWeight={"500"}>{type.name} </Text> )}
                 {!Pokemon && <Spinner />}
+
                 </Box>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
                 <Text borderBottom={"1px"} fontSize={"24px"}>Abilities</Text>
@@ -74,8 +92,15 @@ useEffect(() => {
                 {!Pokemon && <Spinner />}                
                 </Box>
             </SimpleGrid>
+            <Text fontSize={"24px"} align="center" fontWeight={"bold"} marginTop="10px" borderBottom={"1px"}>Random possible moveset</Text>      
+                <Box align={"center"} fontWeight='bold' mb='1rem'>
+                 <SimpleGrid columns={2} spacing={1}>
+                 {Moves &&
+                  Moves.map ((move, index) => <Text bg="#7f9fb0" padding={"10px"} key={index} color="#efefef" fontWeight={"500"} margin="10px" fontSize={"20px"} borderRadius={"8px"}>{move}</Text>)
+                  }
+                </SimpleGrid>
+                </Box>
             </ModalBody>
-  
             <ModalFooter margin={"auto"}>
               <Button colorScheme='blue' mr={3} onClick={onClose}>
                 Close

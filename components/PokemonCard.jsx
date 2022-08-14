@@ -14,9 +14,6 @@ import {
 
 import { useDisclosure } from '@chakra-ui/react';
 import PokemonModal from './PokemonModal';
-import { useEffect, useState } from 'react';
-import { fetchOnePokemon } from '../repository/pokemonfetch';
-
   
   export default function PokemonCard({name, pokeid, types}) {
 
@@ -27,15 +24,20 @@ import { fetchOnePokemon } from '../repository/pokemonfetch';
     <Box key={pokeid} margin="20px">
       <Center py={6}>
         <Box
-            borderRadius={"20px"}
-          bg="#8eacbb"
+          borderRadius={"20px"}
+          bg="rgba(142, 172, 187, 0.8)"
+          backdropFilter={"auto"}
+          backdropBlur={"5px"}
           maxW={'250px'}
           w={'220px'}
           boxShadow={'2xl'}
           p={6}
-          textAlign={'center'}>
+          textAlign={'center'}
+          _hover= {{
+            transform: {translate: ("20px", "20px")}
+          }}
+          >
           <Img
-            size={'xl'}
             src={
               `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokeid}.png`
             }
