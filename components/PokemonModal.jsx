@@ -18,7 +18,7 @@ import { fetchOnePokemon } from '../repository/pokemonfetch'
 
 
 
-export default function PokemonModal({isOpen, onClose, pokeid, test}) {
+export default function PokemonModal({isOpen, onClose, pokeid}) {
 //Logic required for modal to only fetch when opened, in order to avoid the fetching to occur 151+ times during rendering
 let updater = 0
 if (isOpen){
@@ -55,11 +55,14 @@ async function pokeFetch (){
 
 
 
+
     return (
       <>
         <Modal key={pokeid} size={"md"} blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay  />
-          <ModalContent bg="#8eacbb">
+          <ModalContent bg="rgba(176, 219, 234, 0.8)"
+          backdropFilter={"auto"}
+          backdropBlur={"10px"} >
             <ModalHeader fontSize={"45px"} textAlign={"center"}> {Pokemon && 
             Pokemon.name}
             {!Pokemon && <Spinner /> }
@@ -105,7 +108,6 @@ async function pokeFetch (){
               <Button colorScheme='blue' mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button colorScheme='orange'>Add</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

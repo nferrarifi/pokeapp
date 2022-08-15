@@ -6,19 +6,17 @@ import {
     Text,
     Stack,
     Button,
-    Link,
-    useColorModeValue,
     Divider,
-    Spinner
   } from '@chakra-ui/react';
 
 import { useDisclosure } from '@chakra-ui/react';
 import PokemonModal from './PokemonModal';
   
-  export default function PokemonCard({name, pokeid, types}) {
+  export default function PokemonCard({name, pokeid, types, teamHandler, team}) {
 
 
     const {isOpen, onOpen, onClose } = useDisclosure()
+
     
     return (
     <Box key={pokeid} margin="20px">
@@ -33,9 +31,7 @@ import PokemonModal from './PokemonModal';
           boxShadow={'2xl'}
           p={6}
           textAlign={'center'}
-          _hover= {{
-            transform: {translate: ("20px", "20px")}
-          }}
+          transition="all 0.3s"
           >
           <Img
             src={
@@ -73,12 +69,29 @@ import PokemonModal from './PokemonModal';
               _hover={{
                 bg:"teal.300",
                 color:"black",
-
               }}
               transition="all 0.3s"
               onClick={onOpen}
               >
               View details
+            </Button>
+          </Stack>
+          <Stack mt={8} direction={'row'} spacing={4}>
+            <Button
+               flex={1}
+               color="#efefef"
+               margin="auto"
+               fontSize={'sm'}
+               rounded={'full'}
+               bg="teal"
+               _hover={{
+                 bg:"teal.300",
+                 color:"black",
+               }}
+              transition="all 0.3s"
+              onClick={() => teamHandler(pokeid)}
+              >
+            Add to my team
             </Button>
           </Stack>
         </Box>

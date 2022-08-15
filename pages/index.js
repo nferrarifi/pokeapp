@@ -1,18 +1,24 @@
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import PokemonCard from "../components/PokemonCard";
+import PokemonTeam from "../components/PokemonTeam";
 import { getAllPokemon } from "../repository/pokemondb";
 
 export default function Home({ allPokemon }) {
   const [Pokemon, setPokemon] = useState("");
+
+  //Logic for Pokemon Team building feature
   const [team, setTeam] = useState([]);
-  /*   let pokeTeam = [];
-  let teamUpdater = 0;
-  if (teamUpdater > 0) {
-    pokeTeam.push(pokeid);
-  } */
+
+  function teamHandler(pokeid) {
+    if (team.length < 6) {
+      setTeam([...team, pokeid]);
+    } else {
+      alert("Your team cannot have more than 6 Pokémon");
+    }
+  }
 
   return (
     <>
@@ -30,6 +36,7 @@ export default function Home({ allPokemon }) {
         </Head>
         <Box>
           <Nav />
+          {team.length > 0 && <PokemonTeam team={team} />}
           <Box marginLeft={"250px"} marginRight={"250px"}>
             <Box width={"50%"} margin="auto" marginTop={"10px"}>
               <Input
@@ -59,6 +66,8 @@ export default function Home({ allPokemon }) {
                         pokeid={pokemon.pokeid}
                         name={pokemon.name}
                         types={pokemon.types}
+                        teamHandler={teamHandler}
+                        team={team}
                       />
                     );
                   })}
