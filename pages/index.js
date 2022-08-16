@@ -1,24 +1,42 @@
-import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Input, useToast } from "@chakra-ui/react";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Nav from "../components/Nav";
 import PokemonCard from "../components/PokemonCard";
 import PokemonTeam from "../components/PokemonTeam";
 import { getAllPokemon } from "../repository/pokemondb";
 
 export default function Home({ allPokemon }) {
-  const [Pokemon, setPokemon] = useState("");
+  const [PokemonQuery, setPokemonQuery] = useState("");
 
   //Logic for Pokemon Team building feature
   const [team, setTeam] = useState([]);
-
-  function teamHandler(pokeid) {
-    if (team.length < 6) {
-      setTeam([...team, pokeid]);
-    } else {
-      alert("Your team cannot have more than 6 Pokémon");
-    }
-  }
+  const toast = useToast();
+  const teamHandler = {
+    teamAdd: (pokeid, name) => {
+      if (team.length < 6) {
+        setTeam([...team, pokeid]);
+        toast({
+          title: "Pokémon added successfully",
+          description: `${name} has been successfully added to your team`,
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Pokemon team size limit",
+          description: "Your team cannot have more than 6 Pokémon!",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    },
+    teamRemove: (pokeid) => {
+      setTeam(team.filter((poke) => poke !== pokeid));
+    },
+  };
 
   return (
     <>
@@ -40,7 +58,8 @@ export default function Home({ allPokemon }) {
           <Box marginLeft={"250px"} marginRight={"250px"}>
             <Box width={"50%"} margin="auto" marginTop={"10px"}>
               <Input
-                onKeyUpCapture={(e) => setPokemon(e.target.value)}
+                onKeyUpCapture={(e) => setPokemonQuery(e.target.value)}
+                bg="rgba(148, 148, 148, 0.8)                "
                 name="searchQuery"
                 placeholder="Search a specific Pokemon"
                 color={"White"}
@@ -56,9 +75,9 @@ export default function Home({ allPokemon }) {
               {allPokemon &&
                 allPokemon
                   ?.filter((allPokemon) =>
-                    Pokemon === ""
+                    PokemonQuery === ""
                       ? allPokemon
-                      : allPokemon.name.includes(Pokemon.toLowerCase())
+                      : allPokemon.name.includes(PokemonQuery.toLowerCase())
                   )
                   .map((pokemon) => {
                     return (

@@ -12,7 +12,7 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 import PokemonModal from './PokemonModal';
   
-  export default function PokemonCard({name, pokeid, types, teamHandler, team}) {
+  export default function PokemonCard({name, pokeid, types, teamHandler,team}) {
 
 
     const {isOpen, onOpen, onClose } = useDisclosure()
@@ -22,6 +22,7 @@ import PokemonModal from './PokemonModal';
     <Box key={pokeid} margin="20px">
       <Center py={6}>
         <Box
+          border={team.indexOf(pokeid) >= 0 ? "5px solid #efefef" : ""}          
           borderRadius={"20px"}
           bg="rgba(142, 172, 187, 0.8)"
           backdropFilter={"auto"}
@@ -89,9 +90,9 @@ import PokemonModal from './PokemonModal';
                  color:"black",
                }}
               transition="all 0.3s"
-              onClick={() => teamHandler(pokeid)}
+              onClick={() => team.indexOf(pokeid) >= 0 ? teamHandler.teamRemove(pokeid) : teamHandler.teamAdd(pokeid,name)}
               >
-            Add to my team
+            {team.indexOf(pokeid) >= 0 ? "Remove from my team" : "Add to my team"}
             </Button>
           </Stack>
         </Box>
@@ -100,3 +101,5 @@ import PokemonModal from './PokemonModal';
       </Box>
     );
   }
+
+  //
