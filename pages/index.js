@@ -4,9 +4,12 @@ import { useState } from "react";
 import Nav from "../components/Nav";
 import PokemonCard from "../components/PokemonCard";
 import PokemonTeam from "../components/PokemonTeam";
+import { useAuth } from "../context/AuthContext";
 import { getAllPokemon } from "../repository/pokemondb";
 
 export default function Home({ allPokemon }) {
+  const user = useAuth();
+  console.log(user);
   const [PokemonQuery, setPokemonQuery] = useState("");
 
   //Logic for Pokemon Team building feature
@@ -36,6 +39,16 @@ export default function Home({ allPokemon }) {
     teamRemove: (pokeid) => {
       setTeam(team.filter((poke) => poke !== pokeid));
     },
+    teamClear: () => {
+      setTeam([]);
+      toast({
+        title: "Pokemon team cleared",
+        description: `Your team has been cleared`,
+        status: "warning",
+        duration: 2500,
+        isClosable: true,
+      });
+    },
   };
 
   return (
@@ -54,12 +67,14 @@ export default function Home({ allPokemon }) {
         </Head>
         <Box>
           <Nav />
-          {team.length > 0 && <PokemonTeam team={team} />}
+          {team.length > 0 && (
+            <PokemonTeam team={team} teamHandler={teamHandler} />
+          )}
           <Box marginLeft={"250px"} marginRight={"250px"}>
             <Box width={"50%"} margin="auto" marginTop={"10px"}>
               <Input
                 onKeyUpCapture={(e) => setPokemonQuery(e.target.value)}
-                bg="rgba(148, 148, 148, 0.8)                "
+                bg="rgba(148, 148, 148, 0.8)"
                 name="searchQuery"
                 placeholder="Search a specific Pokemon"
                 color={"White"}
@@ -74,10 +89,10 @@ export default function Home({ allPokemon }) {
             >
               {allPokemon &&
                 allPokemon
-                  ?.filter((allPokemon) =>
+                  ?.filter((Pokemon) =>
                     PokemonQuery === ""
-                      ? allPokemon
-                      : allPokemon.name.includes(PokemonQuery.toLowerCase())
+                      ? Pokemon
+                      : Pokemon.name.includes(PokemonQuery.toLowerCase())
                   )
                   .map((pokemon) => {
                     return (

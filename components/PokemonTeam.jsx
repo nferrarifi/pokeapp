@@ -1,7 +1,7 @@
 import React from 'react'
-import { Flex, Box, Text, Img, Stack } from '@chakra-ui/react'
+import { Flex, Box, Text, Img, Button } from '@chakra-ui/react'
 
-const PokemonTeam = ({team}) => {
+const PokemonTeam = ({team, teamHandler}) => {
   return (
     <>
     <Box width="35%" margin={"auto"} borderRadius={"20px"}
@@ -15,7 +15,8 @@ const PokemonTeam = ({team}) => {
         <Flex color={"white"} justifyContent="center" alignContent={"center"} flexDir={"row"}>
         <Box height={"150px"}>
             {team && 
-            team.map ((pokeid) =>           <Img
+            team.map ((pokeid) => 
+            <Img
             src={
               `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokeid}.png`
             }
@@ -23,11 +24,16 @@ const PokemonTeam = ({team}) => {
             borderRadius={"0px"}
             display="inline"
             pos={'relative'}
-            margin="auto"
+            justifyContent="center"
+            marginTop="20px"
             loading="lazy"
-          />)
+          />
+          )
             }
         </Box>
+    </Flex>
+    <Flex justifyContent={"center"}>
+      <Button marginBottom="10px" onClick={teamHandler.teamClear}>Clear team</Button>
     </Flex>
     </Box>
     </>
