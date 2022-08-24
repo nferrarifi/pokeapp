@@ -23,6 +23,9 @@ const Nav = () => {
       </a>
       </Link>
     </Box>
+    <Center color="white" marginTop={"20px"} marginLeft="25px">
+     <Link href="posts"><a>See shared teams</a></Link>
+    </Center>
       <Box position={"absolute"} right="20px">
         {!user &&
         <>

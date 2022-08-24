@@ -17,3 +17,10 @@ model Kanto {
   abilities Json[]
   types     Json[]
 }
+
+model Teams {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  team     Json[]
+  user     String
+  nickname String
+}
