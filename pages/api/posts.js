@@ -1,4 +1,4 @@
-import { getAllPosts } from "../../repository/postdb";
+import { createPost, getAllPosts } from "../../repository/postdb";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -6,12 +6,13 @@ export default async function handler(req, res) {
       const posts = await getAllPosts();
       res.status(200).json(posts);
       break;
-    /*       case "POST":
-        console.log("Post successful");
-        await createPost(req.body);
-        res.status(200).json("OK");
-        break;
-      default:
-        break; */
+    case "POST":
+      console.log("Post successful");
+      console.log(req.body);
+      await createPost(req.body);
+      res.status(200).json("OK");
+      break;
+    default:
+      break;
   }
 }

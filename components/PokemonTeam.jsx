@@ -1,9 +1,11 @@
 import React from 'react'
-import { Flex, Box, Text, Img, Button, Stack } from '@chakra-ui/react'
+import { Flex, Box, Text, Img, Button, Stack, useDisclosure } from '@chakra-ui/react'
 import { useAuth } from '../context/AuthContext'
+import PostModal from './PostModal'
 
 const PokemonTeam = ({team, teamHandler}) => {
   const {user} = useAuth()
+  const {isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
     <Box width="35%" margin={"auto"} borderRadius={"20px"}
@@ -38,8 +40,9 @@ const PokemonTeam = ({team, teamHandler}) => {
     <Flex justifyContent={"center"}>
       <Stack>      
       {user &&
-      <Button>Post team!</Button>
+      <Button onClick={onOpen}>Post team!</Button>
       }
+      <PostModal isOpen={isOpen} onClose={onClose} team={team} />
       <Button marginBottom="10px" onClick={teamHandler.teamClear}>Clear team</Button>
       </Stack>
     </Flex>

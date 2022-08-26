@@ -1,8 +1,16 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
+import { Box, Center, Stack } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
+import Post from "../components/Post";
+import { fetchAllPosts } from "../repository/postfetch";
 
 const posts = () => {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetchAllPosts().then((posts) => {
+      setPosts(posts);
+    });
+  }, []);
   return (
     <>
       <Box
@@ -14,6 +22,19 @@ const posts = () => {
         minHeight={"100vh"}
       >
         <Nav />
+        <Center>
+          {posts &&
+            posts.map((post) => (
+              <Center align="center">
+                <Post
+                  title={post.title}
+                  team={post.team}
+                  user={post.user}
+                  date={post.date}
+                ></Post>
+              </Center>
+            ))}
+        </Center>
       </Box>
     </>
   );
