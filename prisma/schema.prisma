@@ -19,9 +19,11 @@ model Kanto {
 }
 
 model Teams {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  team  Json[]
-  user  String
-  title String
-  date  String
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  team     Json[]
+  user     String
+  title    String
+  date     String
+  nickname String
+  likes    Json[]
 }

@@ -21,13 +21,14 @@ const PostModal = ({isOpen, onClose, team}) => {
     console.log(moment())
     const {user} = useAuth()
     const [title, setTitle] = useState()
+    const [nickname, setNickname] = useState()
     const postHandler = async () => {
       return fetch('http://localhost:3000/api/posts', {
         method: "POST",
         body: JSON.stringify({
           team: team.map((poke) => JSON.stringify(poke)),
           user: user.uid,
-          title: title,
+          title: title || "Untitled",
           date: moment().utcOffset(-3).format("YYYY-MM-DD HH:mm") + " GMT -3"
         }),
         headers: {

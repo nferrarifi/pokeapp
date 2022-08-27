@@ -22,7 +22,7 @@ const posts = () => {
         minHeight={"100vh"}
       >
         <Nav />
-        <Center>
+        <Box>
           {posts &&
             posts.map((post) => (
               <Center align="center">
@@ -31,10 +31,12 @@ const posts = () => {
                   team={post.team}
                   user={post.user}
                   date={post.date}
+                  nickname={post.nickname}
+                  likes={post.likes}
                 ></Post>
               </Center>
             ))}
-        </Center>
+        </Box>
       </Box>
     </>
   );

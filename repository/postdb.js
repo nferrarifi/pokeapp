@@ -13,3 +13,21 @@ export async function createPost(postData) {
   });
   return post;
 }
+
+export async function likePost(postData) {
+  const post = await prisma.teams.update({
+    data: {
+      ...postData,
+    },
+  });
+  return post;
+}
+
+export async function dislikePost(postData) {
+  const post = await prisma.teams.update({
+    data: {
+      ...postData,
+    },
+  });
+  return post;
+}

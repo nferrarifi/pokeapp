@@ -11,7 +11,6 @@ import {
 
 import { useDisclosure } from '@chakra-ui/react';
 import PokemonModal from './PokemonModal';
-import { useRef } from 'react';
   
   export default function PokemonCard({name, pokeid, types, teamHandler,team}) {
 
