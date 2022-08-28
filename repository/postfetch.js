@@ -1,6 +1,21 @@
+import config from "../config";
+
 export async function fetchAllPosts() {
-  const posts = await fetch(`http://localhost:3000/api/posts`).then((data) =>
+  const posts = await fetch(`${config.baseURL}/api/posts`).then((data) =>
     data.json()
   );
   return posts;
 }
+
+export const fetchLikes = async (id, likes) => {
+  return fetch(`${config.baseURL}/api/posts`, {
+    method: "PUT",
+    body: JSON.stringify({
+      id,
+      likes,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

@@ -1,12 +1,10 @@
 import { Box, Flex, Input, useToast } from "@chakra-ui/react";
-import Head from "next/head";
 import { useState } from "react";
 import Nav from "../components/Nav";
 import PokemonCard from "../components/PokemonCard";
 import PokemonTeam from "../components/PokemonTeam";
 import { useAuth } from "../context/AuthContext";
 import { getAllPokemon } from "../repository/pokemondb";
-import moment from "moment";
 export default function Home({ allPokemon }) {
   const user = useAuth();
   console.log(user);
@@ -61,10 +59,6 @@ export default function Home({ allPokemon }) {
         backgroundAttachment={"fixed"}
         minHeight={"100vh"}
       >
-        <Head>
-          <title>Poke App</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
         <Box>
           <Nav />
           {team.length > 0 && (

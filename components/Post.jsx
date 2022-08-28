@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, Flex, Stack, Img, useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {config} from "@fortawesome/fontawesome-svg-core"
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
-const Post = ({ title, team, nickname, date, likes }) => {
-  const [currentLikes, setCurrentLikes] = useState([likes.length])
+import { fetchLikes } from "../repository/postfetch";
+config.autoAddCss = false
+const Post = ({ title, team, nickname, date, likes, id }) => {
+  const [currentLikes, setCurrentLikes] = useState(likes.length)
   const {user} = useAuth()
   const toast = useToast()
   const likesHandler = () => {
@@ -22,25 +25,17 @@ const Post = ({ title, team, nickname, date, likes }) => {
     if (user && (likes.indexOf (user.uid) === -1)) {
       console.log ("Like request received")
       likes.push (user.uid)
+      setCurrentLikes(likes.length)
+      fetchLikes(id, likes)
     }
     else if (user && (likes.indexOf (user.uid) !== -1)){
       console.log ("dislike request received")
       likes.pop()
+      setCurrentLikes(likes.length)
+      fetchLikes(id, likes)
     }
     }
-/*         const fetchLikes = async () => {
-          return fetch('http://localhost:3000/api/posts', {
-            method: "PUT",
-            body: JSON.stringify({
-              likes: [...likes, user.uid]
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        };
-       return await fetchLikes()
-  } */
+
 
   return (
     <>
@@ -79,15 +74,17 @@ const Post = ({ title, team, nickname, date, likes }) => {
         </Box>
         <Box textAlign={"left"}>
         <Text marginBottom={"10px"} fontSize="12px" color="white">Posted by: {nickname} on {date} </Text>
-        <Box fontSize={"25px"}>
+        <Box display="inline" fontSize={"25px"}>
           <Text color="white" marginRight="10px" display="inline">{currentLikes &&
           currentLikes
           }</Text>
-          <Box onClick={() => likesHandler()} color="white" _hover={{
+          <Box margin="0px" onClick={() => likesHandler()} color="white" _hover={{
             color:"teal.300",
             cursor:"pointer"
           }} display="inline" transition="0.3s">
-            <FontAwesomeIcon  icon={faThumbsUp} />
+            <Flex display={"inline-flex"}>
+            <FontAwesomeIcon display="inline" width={"20px"} icon={faThumbsUp} />
+            </Flex>
           </Box>
         </Box>
         </Box>

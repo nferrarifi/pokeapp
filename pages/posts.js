@@ -33,6 +33,7 @@ const posts = () => {
                   date={post.date}
                   nickname={post.nickname}
                   likes={post.likes}
+                  id={post.id}
                 ></Post>
               </Center>
             ))}

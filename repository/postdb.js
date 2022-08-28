@@ -1,7 +1,11 @@
 import { prisma } from "../prisma/client";
 
 export async function getAllPosts() {
-  const allPosts = await prisma.teams.findMany({});
+  const allPosts = await prisma.teams.findMany({
+    orderBy: {
+      likes: "desc",
+    },
+  });
   return allPosts;
 }
 
@@ -14,19 +18,13 @@ export async function createPost(postData) {
   return post;
 }
 
-export async function likePost(postData) {
+export async function likePost(id, likes) {
   const post = await prisma.teams.update({
     data: {
-      ...postData,
+      likes,
     },
-  });
-  return post;
-}
-
-export async function dislikePost(postData) {
-  const post = await prisma.teams.update({
-    data: {
-      ...postData,
+    where: {
+      id,
     },
   });
   return post;
