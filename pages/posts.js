@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Post from "../components/Post";
 import { fetchAllPosts } from "../repository/postfetch";
 
-const posts = () => {
+const Posts = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetchAllPosts().then((posts) => {
@@ -43,4 +43,4 @@ const posts = () => {
   );
 };
 
-export default posts;
+export default Posts;
