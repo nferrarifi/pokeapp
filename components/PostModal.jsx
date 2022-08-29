@@ -65,7 +65,7 @@ const PostModal = ({isOpen, onClose, team}) => {
                 <Box>
                   {team && 
                   team.map ((pokeid) =>
-                  <Stack display="inline">
+                  <Stack key={pokeid} display="inline">
                   <Img
                   src={
                     `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/versions/generation-vii/icons/${pokeid}.png`

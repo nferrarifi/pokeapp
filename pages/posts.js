@@ -25,8 +25,9 @@ const Posts = () => {
         <Box>
           {posts &&
             posts.map((post) => (
-              <Center align="center">
+              <Center key={post.id} align="center">
                 <Post
+                  key={post.id}
                   title={post.title}
                   team={post.team}
                   user={post.user}

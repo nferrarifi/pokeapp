@@ -91,6 +91,7 @@ export default function Home({ allPokemon }) {
                   .map((pokemon) => {
                     return (
                       <PokemonCard
+                        key={pokemon.pokeid}
                         pokeid={pokemon.pokeid}
                         name={pokemon.name}
                         types={pokemon.types}

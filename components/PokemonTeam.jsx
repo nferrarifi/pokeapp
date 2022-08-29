@@ -20,7 +20,7 @@ const PokemonTeam = ({team, teamHandler}) => {
         <Box height={"150px"}>
             {team && 
             team.map ((pokeid) =>
-            <Stack display="inline">
+            <Stack key={pokeid} display="inline">
             <Img
             src={
               `https://github.com/PokeAPI/sprites/raw/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokeid}.png`
