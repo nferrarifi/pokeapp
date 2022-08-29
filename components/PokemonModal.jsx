@@ -82,14 +82,14 @@ async function pokeFetch (){
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
                 <Text borderBottom={"1px"} fontSize={"24px"}>Types</Text>
                 {Pokemon &&
-                Pokemon.types.map(({type}) => <Text fontWeight={"500"}>{type.name} </Text> )}
+                Pokemon.types.map(({type, index}) => <Text key={index} fontWeight={"500"}>{type.name} </Text> )}
                 {!Pokemon && <Spinner />}
 
                 </Box>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
                 <Text borderBottom={"1px"} fontSize={"24px"}>Abilities</Text>
                 {Pokemon &&
-                Pokemon.abilities.map(({ability}) => <Text fontWeight={"500"}>{ability.name} </Text> )}
+                Pokemon.abilities.map(({ability,index}) => <Text key={index} fontWeight={"500"}>{ability.name} </Text> )}
                 {!Pokemon && <Spinner />}                
                 </Box>
             </SimpleGrid>
