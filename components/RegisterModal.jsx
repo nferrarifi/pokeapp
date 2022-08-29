@@ -22,17 +22,25 @@ const RegisterModal = ({isOpen, onClose}) => {
     const passwordInput = useRef()
     const toast = useToast()
     const {user, signUp} = useAuth()
-    const [User, setUser] = useState();
+    const [Email, setEmail] = useState();
     const [Password, setPassword] = useState();
-    const handleRegister = async (User, Password) => {
+    const handleRegister = async (Email, Password) => {
       if (!user){
-      try {
-        await signUp (User, Password)
-        onClose()
-      } catch (err) {
-        console.log(err)
-      }
-    }
+          try {
+            await signUp (Email, Password)
+            onClose()
+          } catch (err) {
+            console.log(err)
+            toast({
+              title: "Register Error",
+              description: "Please enter a valid, unused email, and a 6+ characters long password",
+              status: "error",
+              position: "bottom",
+              duration: 3000,
+              isClosable: true,
+            })
+          }
+        }
       else {
         toast({
           title: "Register Error",
@@ -57,13 +65,13 @@ const RegisterModal = ({isOpen, onClose}) => {
             <ModalBody margin={"auto"}>
                 <Box align={"center"} fontWeight='bold' mb='1rem'>
                 <FormLabel>Email</FormLabel>
-                <Input ref={emailInput} type={"email"} required background={"#efefef"} onKeyUpCapture={(e) => setUser(e.target.value)}></Input>
+                <Input ref={emailInput} type={"email"} required="true" background={"#efefef"} onKeyUpCapture={(e) => setEmail(e.target.value)}></Input>
                 <FormLabel>Password</FormLabel>
                 <Input ref={passwordInput} type={"password"} background={"#efefef"} onKeyUpCapture={(e) => setPassword(e.target.value)}></Input>
                 </Box>
             </ModalBody>
             <ModalFooter margin={"auto"}>
-            <Button mr={3} onClick={() => handleRegister(User, Password)}>
+            <Button mr={3} onClick={() => handleRegister(Email, Password)}>
                 Sign Up
               </Button>
               <Button colorScheme='blue' mr={3} onClick={onClose}>

@@ -17,6 +17,7 @@ import {
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useRouter } from 'next/router'
+import config from '../config'
 import moment from 'moment'
 
 const PostModal = ({isOpen, onClose, team}) => {
@@ -44,7 +45,8 @@ const PostModal = ({isOpen, onClose, team}) => {
     const postHandler = async () => {
       postFetch()
       onClose()
-      router.push ("/posts")
+      setTimeout(() => router.push ("/posts"), 1200)
+ 
     }
     return (
       <>

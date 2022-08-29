@@ -7,7 +7,7 @@ export async function fetchAllPosts() {
   return posts;
 }
 
-export const fetchLikes = async (id, likes) => {
+export async function fetchLikes(id, likes) {
   return fetch(`${config.baseURL}/api/posts`, {
     method: "PUT",
     body: JSON.stringify({
@@ -18,4 +18,4 @@ export const fetchLikes = async (id, likes) => {
       "Content-Type": "application/json",
     },
   });
-};
+}

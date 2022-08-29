@@ -15,6 +15,7 @@ import {
 import { Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { fetchOnePokemon } from '../repository/pokemonfetch'
+import config from '../config'
 
 
 
@@ -52,9 +53,6 @@ async function pokeFetch (){
   })
   }
 }
-
-
-
 
     return (
       <>
