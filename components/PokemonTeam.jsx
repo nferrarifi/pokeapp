@@ -8,7 +8,7 @@ const PokemonTeam = ({team, teamHandler}) => {
   const {isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-    <Box width="35%" margin={"auto"} borderRadius={"20px"}
+    <Box width="70vh" margin={"auto"} borderRadius={"20px"}
           bg="rgba(255, 255, 255, 0.3)"
           backdropFilter={"auto"}
           backdropBlur={"3px"}
