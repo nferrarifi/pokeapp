@@ -1,4 +1,4 @@
-import { Box, Center, Stack } from "@chakra-ui/react";
+import { Box, Center, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Post from "../components/Post";
@@ -35,9 +35,22 @@ const Posts = () => {
                   nickname={post.nickname}
                   likes={post.likes}
                   id={post.id}
-                ></Post>
+                />
               </Center>
             ))}
+          {posts.length < 1 && (
+            <Center marginTop="50px">
+              <Text display="block" color="white">
+                Loading teams, please wait...
+              </Text>
+              <Spinner
+                marginLeft="20px"
+                display="block"
+                color="white"
+                size="md"
+              />
+            </Center>
+          )}
         </Box>
       </Box>
     </>

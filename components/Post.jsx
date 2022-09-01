@@ -29,7 +29,7 @@ const Post = ({ title, team, nickname, date, likes, id }) => {
       fetchLikes(id, likes)
     }
     else if (user && (likes.indexOf (user.uid) !== -1)){
-      console.log ("dislike request received")
+      console.log ("Dislike request received")
       likes.pop()
       setCurrentLikes(likes.length)
       fetchLikes(id, likes)
